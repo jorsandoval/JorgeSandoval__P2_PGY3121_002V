@@ -92,11 +92,11 @@
             case "onemi":
               $("#thead_disasters").empty().append('<tr><th scope="col">Estado Alerta</th><th scope="col">Titulo</th><th scope="col">Region</th><th scope="col">Fecha</th><th scope="col">Url</th></tr>');
               $.each(data.onemi, function (i, { state, post_title, alert_region, alert_date, url }) {
-                $("#tbody_disasters").append(createRowOnemiDisaster( state, post_title, alert_region, alert_date, url));
+                $("#tbody_disasters").append(createRowOnemiDisaster(state, post_title, alert_region, alert_date, url));
               })
               break;
             case "ultimos_sismos":
-            $("#thead_disasters").empty().append('<tr><th scope="col">Referencia</th><th scope="col">Magnitud</th><th scope="col">Latitud</th><th scope="col">Longitud</th><th scope="col">Hora</th><</tr>');
+              $("#thead_disasters").empty().append('<tr><th scope="col">Referencia</th><th scope="col">Magnitud</th><th scope="col">Latitud</th><th scope="col">Longitud</th><th scope="col">Hora</th><</tr>');
               $.each(data.ultimos_sismos, function (i, { reference, magnitude, latitude, longitude, utc_time }) {
                 $("#tbody_disasters").append(createRowMundoDisaster(reference, magnitude, latitude, longitude, utc_time));
               })
@@ -105,6 +105,15 @@
         })
     })
   </script>
+  <footer>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark justify-content-xl-center">
+      <a class="navbar-brand" href="./sistema_alerta.html">Sistema Alerta</a>
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" href="./index.html">Inicio<span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" href="./contacto.html">Contacto <span class="sr-only">(current)</span></a>
+      </div>
+    </nav>
+  </footer>
 </body>
 
 </html>

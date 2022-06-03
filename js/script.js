@@ -30,6 +30,10 @@ function enviarformulariovalidado() {
         mensajesError.push('Debes Ingresar tu nombre');
     }
 
+    if(correo.value === null || correo.value ===''){
+        mensajesError.push('Debe ingresar al menos un correo');
+    }
+
     if (!correo.value.includes('@gmail.com') || !correo.value.includes('@duocuc.cl') || !correo.value.includes('@profesor.duoc.cl')) {
         mensajesError.push('Dominio de correo electronico no permitido');
     }
