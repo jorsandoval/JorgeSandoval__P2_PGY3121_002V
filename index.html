@@ -42,10 +42,18 @@
       </div>
       <div div class="col-md-12 p-md-5">
         <div class="row">
-          <div class="col-md-6" id="ultsismos" value="ultimos_sismos">
+          <div class="col-md-6 p-md-5" id="ultimos_sismos">
 
           </div>
-          <div class="col-md-6" id="Tsunamis">
+          <div class="col-md-6 p-md-5" id="Tsunamis">
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 p-md-5" id="onemi">
+
+          </div>
+          <div class="col-md-6 p-md-5" id="ultimos_sismos_chile">
 
           </div>
         </div>
@@ -54,38 +62,49 @@
   </div>
 
   <script>
-    $('#dashboard').ready(function () {
-      var alerta_value = $("#dashboard").val();
-      $.get(getBasePath(alerta_value),
-        function (data) {
-          switch (alerta_value) {
-            case "tsunami_chile":
-              $("#thead_disasters").empty().append('<tr><th scope="col">Referencia</th><th scope="col">Magnitud</th><th scope="col">Latitud</th><th scope="col">Longitud</th><th scope="col">Hora</th><</tr>');
-              $.each(data.tsunami_chile, function (i, { reference, magnitude, latitude, longitude, local_time }) {
-                $("#tbody_disasters").append(createRowDisaster(reference, magnitude, latitude, longitude, local_time));
-              })
-              break;
-            case "ultimos_sismos_chile":
-              $("#thead_disasters").empty().append('<tr><th scope="col">Referencia</th><th scope="col">Magnitud</th><th scope="col">Latitud</th><th scope="col">Longitud</th><th scope="col">Hora</th><</tr>');
-              $.each(data.ultimos_sismos_chile, function (i, { reference, magnitude, latitude, longitude, local_time }) {
-                $("#tbody_disasters").append(createRowDisaster(reference, magnitude, latitude, longitude, local_time));
-              })
-              break;
-            case "onemi":
-              $("#thead_disasters").empty().append('<tr><th scope="col">Estado Alerta</th><th scope="col">Titulo</th><th scope="col">Region</th><th scope="col">Fecha</th><th scope="col">Url</th></tr>');
-              $.each(data.onemi, function (i, { state, post_title, alert_region, alert_date, url }) {
-                $("#tbody_disasters").append(createRowOnemiDisaster(state, post_title, alert_region, alert_date, url));
-              })
-              break;
-            case "ultimos_sismos":
-              $("#thead_disasters").empty().append('<tr><th scope="col">Referencia</th><th scope="col">Magnitud</th><th scope="col">Latitud</th><th scope="col">Longitud</th><th scope="col">Hora</th><</tr>');
-              $.each(data.ultimos_sismos, function (i, { reference, magnitude, latitude, longitude, utc_time }) {
-                $("#tbody_disasters").append(createRowMundoDisaster(reference, magnitude, latitude, longitude, utc_time));
-              })
-              break;
-          }
-        })
-    })
+    const ultimos_sismos = 'https://chilealerta.com/api/query/?user=andr3iss&select=ultimos_sismos&limit=1&country=Chile/'
+    fetch(ultimos_sismos)
+      .then(response => response.json())
+      .then(data => {
+        let element = document.getElementById('ultimos_sismos')
+        element.innerHTML = `
+      <p>${data.reference}</p>
+      <p>${data.chilean_time}</p>
+      `;
+      })
+
+    const Tsunamis = 'https://chilealerta.com/api/query/?user=andr3iss&select=Tsunamis&limit=1'
+    fetch(Tsunamis)
+      .then(response => response.json())
+      .then(data => {
+        let element = document.getElementById('Tsunamis')
+        element.innerHTML = `
+      <p>${data.reference}</p>
+      <p>${data.chilean_time}</p>
+      `;
+      })
+
+      const onemi = 'https://chilealerta.com/api/query/?user=andr3iss&select=onemi&limit=1'
+    fetch(onemi)
+      .then(response => response.json())
+      .then(data => {
+        let element = document.getElementById('onemi')
+        element.innerHTML = `
+      <p>${data.post_title}</p>
+      <p>${data.chilean_time}</p>
+      `;
+      })
+
+      const ultimos_sismos_chile = 'https://chilealerta.com/api/query/?user=andr3iss&select=ultimos_sismos_chile&limit=1'
+    fetch(ultimos_sismos_chile)
+      .then(response => response.json())
+      .then(data => {
+        let element = document.getElementById('ultimos_sismos_chile')
+        element.innerHTML = `
+      <p>${data.reference}</p>
+      <p>${data.chilean_time}</p>
+      `;
+      })
   </script>
 
   <footer>
