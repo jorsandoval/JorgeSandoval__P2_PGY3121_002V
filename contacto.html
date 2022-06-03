@@ -33,7 +33,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <form>
+                <form id="formulariocontacto">
                     <fieldset>
                         <legend>Formulario de contacto</legend>
                         <div class="form-group">
@@ -70,7 +70,7 @@
                                 <textarea class="form-control" id="textarea" rows="5"></textarea>
                                 <br />
                                 <input type="reset" value="Limpiar"></input>
-                                <input type="submit" value="Enviar" onclick="enviarformulariovalidado()"></input>
+                                <input type="submit" value="Enviar"></input>
                             </div>
                         </div>
                     </fieldset>
@@ -82,7 +82,10 @@
     </div>
 
     <script>
-        
+        $('#formulariocontacto').submit(function (event) {
+            event.preventDefault();
+            enviarformulariovalidado();
+        })
 
         $(document).ready(function () {
             $.get("https://apps.gasco.cl/v1/locationService/regions/getAllRegions/",
