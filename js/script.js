@@ -3,7 +3,7 @@ function getBasePath(service) {
 }
 
 function getBasePathindex(service) {
-    return "https://chilealerta.com/api/query/?user=andr3iss&select=" + service +"&limit={1}";
+    return "https://chilealerta.com/api/query/?user=andr3iss&select=" + service + "&limit={1}";
 }
 function createRowDisaster(reference, magnitude, latitude, longitude, local_time) {
     return '<tr><td>' + reference + '</td><td>' + magnitude + '</td><td>' + latitude + '</td><td>' + longitude + '</td><td>' + local_time + '</td></tr>';
@@ -32,15 +32,13 @@ function enviarformulariovalidado() {
         mensajesError.push('Debes Ingresar tu nombre');
     }
 
-    if(correo.value === null || correo.value ===''){
-        mensajesError.push('Debe ingresar al menos un correo');
+    if (correo.value == "" || (correo.value.match(/@gmail.com|@duocuc.com|@profesor.duoc.cl/))) {
+        mensajesError.push('Debe ingresar un correo o dominio valido');
     }
 
-    if (!correo.value.includes('@gmail.com') || !correo.value.includes('@duocuc.cl') || !correo.value.includes('@profesor.duoc.cl')) {
-        mensajesError.push('Dominio de correo electronico no permitido');
-    }
 
-    if (comuna.value === null || comuna.value === ''|| comuna.value === 'Seleccione una comuna..') {
+
+    if (comuna.value === null || comuna.value === '' || comuna.value === 'Seleccione una comuna..') {
         mensajesError.push('Debes seleccionar una comuna');
     }
 

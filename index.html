@@ -5,7 +5,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Evaluación 2</title>
+  <title>Evaluación 2 - Sistema Alerta</title>
+  <link rel="icon" type="image/x-icon" href="./img/favicon.png">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
@@ -37,9 +38,11 @@
       </div>
     </div>
     <div id="dashboard">
+      <div class="row">
       <div div class="col-md-12 p-md-5">
         <h2>Dashboard</h2>
       </div>
+    </div>
       <div div class="col-md-12 p-md-5">
         <div class="row">
           <div class="col-md-6 p-md-5" id="ultimos_sismos">
@@ -50,7 +53,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 p-md-5" id="onemi">
+          <div class="col-md-6 p-md-5" id="alert_onemi">
 
           </div>
           <div class="col-md-6 p-md-5" id="ultimos_sismos_chile">
@@ -62,48 +65,55 @@
   </div>
 
   <script>
-    const ultimos_sismos = 'https://chilealerta.com/api/query/?user=andr3iss&select=ultimos_sismos&limit=1&country=Chile/'
-    fetch(ultimos_sismos)
-      .then(response => response.json())
-      .then(data => {
+    $.get('https://chilealerta.com/api/query/?user=andr3iss&select=ultimos_sismos&limit=1/',
+      function(data){
         let element = document.getElementById('ultimos_sismos')
         element.innerHTML = `
-      <p>${data.reference}</p>
-      <p>${data.magnitude}</p>
-      `;
+        <h2>Últimos Sismos</h2>
+        <br>
+        <label for="date">Cuando</label>
+        <p id="date">${data['ultimos_sismos'][0].chilean_time}</p>
+
+        <label for="ref">Donde</label>
+        <p id="ref">${data['ultimos_sismos'][0].reference}</p>
+
+        <label for="mag">Magnitud</label>
+        <p id="mag">${data['ultimos_sismos'][0].magnitude}</p>
+        `;
       })
 
-    const Tsunamis = 'https://chilealerta.com/api/query/?user=andr3iss&select=Tsunamis&limit=1'
-    fetch(Tsunamis)
-      .then(response => response.json())
-      .then(data => {
+      $.get('https://chilealerta.com/api/query/?user=andr3iss&select=tsunami_chile&limit=1/',
+      function(data){
         let element = document.getElementById('Tsunamis')
         element.innerHTML = `
-      <p>${data.reference}</p>
-      <p>${data.chilean_time}</p>
-      `;
-      })
+        <h2>Últimos Alertas Tsunamis</h2>
+        <br>
+        <label for="date">Cuando</label>
+        <p id="date">${data['tsunami_chile'].local_time}</p>
 
-      const onemi = 'https://chilealerta.com/api/query/?user=andr3iss&select=onemi&limit=1'
-    fetch(onemi)
-      .then(response => response.json())
-      .then(data => {
+        <label for="ref">Donde</label>
+        <p id="ref">${data['tsunami_chile'].reference}</p>
+
+        <label for="mag">Magnitud</label>
+        <p id="mag">${data['tsunami_chile'].magnitude}</p>
+        `;
+      })
+      
+      $.get('https://chilealerta.com/api/query/?user=andr3iss&select=onemi&limit=1',
+      function(data){
         let element = document.getElementById('onemi')
         element.innerHTML = `
-      <p>${data.post_title}</p>
-      <p>${data.chilean_time}</p>
-      `;
-      })
+        <h2>Última Información ONEMI</h2>
+        <br>
+        <label for="date">Cuando</label>
+        <p id="date">${data['onemi'].alert_date}</p>
 
-      const ultimos_sismos_chile = 'https://chilealerta.com/api/query/?user=andr3iss&select=ultimos_sismos_chile&limit=1'
-    fetch(ultimos_sismos_chile)
-      .then(response => response.json())
-      .then(data => {
-        let element = document.getElementById('ultimos_sismos_chile')
-        element.innerHTML = `
-      <p>${data.reference}</p>
-      <p>${data.chilean_time}</p>
-      `;
+        <label for="ref">Donde</label>
+        <p id="ref">${data['onemi'].alert_region}</p>
+
+        <label for="alert">Alertaitud</label>
+        <p id="alert">${data['onemi'].post_title}</p>
+        `;
       })
   </script>
 
