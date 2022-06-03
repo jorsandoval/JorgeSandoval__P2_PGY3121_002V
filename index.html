@@ -63,6 +63,7 @@
       </div>
     </div>
   </div>
+  <div id="cont_9280871a3e2d3fdde4aa29447328b908"><script type="text/javascript" async src="https://www.meteored.cl/wid_loader/9280871a3e2d3fdde4aa29447328b908"></script></div>
 
   <script>
     $.get('https://chilealerta.com/api/query/?user=andr3iss&select=ultimos_sismos&limit=1/',
@@ -111,10 +112,28 @@
         <label for="ref">Donde</label>
         <p id="ref">${data['onemi'].alert_region}</p>
 
-        <label for="alert">Alertaitud</label>
+        <label for="alert">Alerta</label>
         <p id="alert">${data['onemi'].post_title}</p>
         `;
       })
+
+      $.get('https://chilealerta.com/api/query/?user=andr3iss&select=ultimos_sismos_chile&limit=1',
+      function(data){
+        let element = document.getElementById('ultimos_sismos_chile')
+        element.innerHTML = `
+        <h2>Última Información ONEMI</h2>
+        <br>
+        <label for="date">Cuando</label>
+        <p id="date">${data['onemi'].local_time}</p>
+
+        <label for="ref">Donde</label>
+        <p id="ref">${data['onemi'].reference}</p>
+
+        <label for="mag">Magnitud</label>
+        <p id="mag">${data['onemi'].magnitude}</p>
+        `;
+      })
+
   </script>
 
   <footer>
