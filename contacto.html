@@ -10,6 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="js/script.js"></script>
 
 </head>
 
@@ -65,29 +66,23 @@
                                     <option value="0">Seleccione una comuna...</option>
                                 </select>
                                 <br>
-                                <label for="edadUsuario">Edad</label>
-                                <input type="number" class="form-control" id="edadUsuario" name="edadUsuario"
-                                    placeholder="Ingrese su edad..."></input>
-                                <br />
                                 <label for="textarea" class="form-label">Mensaje de contacto</label>
                                 <textarea class="form-control" id="textarea" rows="5"></textarea>
                                 <br />
                                 <input type="reset" value="Limpiar"></input>
-                                <input type="submit" value="Enviar" onclick="mostrarMensaje();"></input>
+                                <input type="submit" value="Enviar" onclick="enviarformulariovalidado()"></input>
                             </div>
                         </div>
                     </fieldset>
                 </form>
+                <div id="error">
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        function mostrarMensaje() {
-            var nombre = document.getElementById("nombreUsuario").value;
-            var mensaje = "Bienvenido, " + nombre;
-            alert(mensaje);
-        }
+        
 
         $(document).ready(function () {
             $.get("https://apps.gasco.cl/v1/locationService/regions/getAllRegions/",
@@ -118,7 +113,7 @@
             var endpoint = "https://apps.gasco.cl/v1/locationService/communes/byProvinceId/" + selected_provincia + "/"
             $.get(endpoint,
                 function (data) {
-                    // $("#id_comuna").html("<option value=\"0\">Seleccione una comuna...</option>");
+                    $("#id_comuna").html("<option value=\"0\">Seleccione una comuna...</option>");
                     $.each(data.data, function (i, { id, name }) {
                         $("#id_comuna").append('<option value="' + id + '">' + name + '</option>');
                     })

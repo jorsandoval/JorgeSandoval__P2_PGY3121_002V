@@ -14,3 +14,33 @@ function createRowOnemiDisaster(state, post_title, alert_region, alert_date, url
 function createRowMundoDisaster(reference, magnitude, latitude, longitude, utc_time) {
     return '<tr><td>' + reference + '</td><td>' + magnitude + '</td><td>' + latitude + '</td><td>' + longitude + '</td><td>' + utc_time + '</td></tr>';
 }
+
+var nombre = document.getElementById('nombreUsuario');
+var correo = document.getElementById('emailUsuario');
+var telefono = document.getElementById('telusuario');
+var comuna = document.getElementById('id_comuna')
+var error = document.getElementById('error');
+error.style.color = 'red';
+
+function enviarformulariovalidado(formulario){
+    console.log('Enviando formulario...');
+
+    var mensajesError = [];
+
+    if(nombre.value === null || nombre.value === ''){
+        mensajesError.push('Debes Ingresar tu nombre');
+    }
+
+    if(correo.value == '@gmail.com' || correo.value == '@duocuc.cl' || correo.value == '@profesor.duoc.cl'){
+        mensajesError.push('Dominio de correo electronico no permitido');
+    }
+
+    if(comuna.value === null || comuna.value === ''){
+        mensajesError.push('Debes seleccionar una comuna');
+    }
+
+    error.innerHTML = mensajesError.join(',');
+     
+
+    return false;
+}
