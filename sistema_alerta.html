@@ -74,12 +74,10 @@
       var alerta_value = $("#id_alerta").val();
       $.get(getBasePath(alerta_value),
         function (data) {
-          //console.log(data)
           $("#tbody_disasters tr").remove();
           $("#tbody_disasters tr").remove();
           switch (alerta_value) {
             case "tsunami_chile":
-              
               $("#thead_disasters").empty().append('<tr><th scope="col">Referencia</th><th scope="col">Magnitud</th><th scope="col">Latitud</th><th scope="col">Longitud</th><th scope="col">Hora</th><</tr>');
               $.each(data.tsunami_chile, function (i, { reference, magnitude, latitude, longitude, local_time }) {
                 $("#tbody_disasters").append(createRowDisaster(reference, magnitude, latitude, longitude, local_time));
